@@ -20,4 +20,5 @@ from application.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
+    path('prediction/', prediction, name='prediction'),
 ]
