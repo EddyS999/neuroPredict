@@ -1,6 +1,8 @@
 from django.db import models
-
+# test
 # Create your models here.
+
+
 class Patient(models.Model):
     nom = models.CharField(max_length=100)
     prenom = models.CharField(max_length=100)
@@ -14,4 +16,3 @@ class Patient(models.Model):
     symptom_duration = models.FloatField(max_length=4)
     pulse = models.FloatField(max_length=4)
     systolic_blood_pressure = models.FloatField(max_length=4)
-    
