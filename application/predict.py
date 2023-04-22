@@ -8,7 +8,7 @@ fichier = 'model/als_model.pkl'
 if os.path.getsize(fichier) > 0:
     with open(fichier, 'rb') as file:
         model = pickle.load(file)
-        
+
     with open(fichier, 'wb') as file:
         pickle.dump(model, file)
 # Les caractéristiques d'un patient (Attention l'ordre des variables est important.)
@@ -19,3 +19,9 @@ if os.path.getsize(fichier) > 0:
     print(model._predict_proba_lr(patient.reshape(1, -1)))
 else:
     print("erreur de lecture")
+
+# prend en paramètre toutes les infos
+
+
+def predict():
+    pass
