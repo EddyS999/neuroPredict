@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{%block content%}
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1>Prédiction: </h1>
+    {% if prediction == 1 %}
+    <p style="color: green;">Survie probable du patient.</p>
+    {% else %}
+    <P style="color:red">Décès probable du patient.</P>
+    {% endif %}
+    <h1>Chances de survie: </h1>
+    {{survie}}%
+    <h1>Chances de mort: </h1>
+    {{mort}}%
+
+    <p>Nom : {{nom}}</p>
+    <p>Prenom : {{prenom}}</p>
+
+
+</body>
+
+</html>
+{%endblock%}

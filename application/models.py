@@ -8,6 +8,7 @@ class Patient(models.Model):
     prenom = models.CharField(max_length=100)
     sexe = models.IntegerField(max_length=1)
     age = models.IntegerField(max_length=3)
+    poids = models.FloatField(max_length=3)
     taille = models.FloatField(max_length=3)
     salivation = models.IntegerField(max_length=1)
     cutting = models.IntegerField(max_length=1)
