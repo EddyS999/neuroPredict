@@ -1,0 +1,4 @@
+- Réaliser un formulaire permettant à un clinicien d'indiquer les données d'un patient dans le bon format.
+- Réaliser une prédiction sur l'état de santé futur (Chance de survie et progression de la maladie) d'un patient en intégrant mes propres modèles de machine learning à l'application.
+- Pouvoir sauvegarder les résultats et les graphiques dans un fichier pdf.
+- Faire en sorte que l'UX design soit intuitif et pratique.

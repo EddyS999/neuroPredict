@@ -17,3 +17,7 @@ class Patient(models.Model):
     symptom_duration = models.FloatField(max_length=4)
     pulse = models.FloatField(max_length=4)
     systolic_blood_pressure = models.FloatField(max_length=4)
+
+    prediction = models.IntegerField()
+    vivant = models.FloatField(max_length=100)
+    mort = models.FloatField(max_length=100)
