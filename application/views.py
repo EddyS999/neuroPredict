@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from .forms import PatientForm
+from .models import Patient
 from application.predict import get_prediction
+from application.generateCSV import generer_csv
 # Create your views here.
-# test
 
 
 def index(request):
@@ -29,6 +30,27 @@ def index(request):
             mort = result[0]
             survie = result[1]
             prediction = result[2]
+
+            patient = Patient(
+                nom=nom,
+                prenom=prenom,
+                sexe=sexe,
+                age=age,
+                poids=poids,
+                taille=taille,
+                salivation=salivation,
+                cutting=cutting,
+                turning_in_bed=turning_in_bed,
+                alsfrs=alsfrs,
+                symptom_duration=symptom_duration,
+                pulse=pulse,
+                systolic_blood_pressure=systolic_blood_pressure,
+                prediction=prediction,
+                vivant=survie,
+                mort=mort,
+            )
+
+            patient.save()
 
             return render(request, "prediction.html", {
                 'nom': nom,
@@ -59,3 +81,6 @@ def prediction(request):
         'survie': survie,
         'prediction': prediction,
     })
+
+
+2
