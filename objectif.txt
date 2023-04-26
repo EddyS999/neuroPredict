@@ -2,3 +2,9 @@
 - Réaliser une prédiction sur l'état de santé futur (Chance de survie et progression de la maladie) d'un patient en intégrant mes propres modèles de machine learning à l'application.
 - Pouvoir sauvegarder les résultats et les graphiques dans un fichier pdf.
 - Faire en sorte que l'UX design soit intuitif et pratique.
+
+- ajouter une fonctionalité qui permet au médecin d'importer un fichier csv/xlsx représentant une cohorte de patients
+- Chaque colonne est une variable et chaque ligne un patient
+- Tu vérifies que toutes les données sont au bon format 
+- Une fois importer il arrive sur une nouvelle page avec la prédiction pour chaque patient, le pourcentage de survie en moyenne etc ...
+- Il récupère les résultats des patients (Survie/Décès, Probabilité de survie) au format csv avec un bouton
