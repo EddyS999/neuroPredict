@@ -12,20 +12,34 @@ def index(request):
         if form.is_valid():
             nom = request.POST['nom']
             prenom = request.POST['prenom']
-            sexe = request.POST['sexe']
-            age = request.POST['age']
-            poids = request.POST['poids']
-            taille = request.POST['taille']
-            salivation = request.POST['salivation']
-            cutting = request.POST['cutting']
-            turning_in_bed = request.POST['turning_in_bed']
-            alsfrs = request.POST['alsfrs']
-            symptom_duration = request.POST['symptom_duration']
-            pulse = request.POST['pulse']
-            systolic_blood_pressure = request.POST['systolic_blood_pressure']
+            sexe = int(request.POST['sexe'])
+            age = int(request.POST['age'])
+            poids = float(request.POST['poids'])
+            taille = float(request.POST['taille'])
 
-            result = get_prediction(int(sexe), int(age), float(poids), float(taille), int(salivation), int(cutting), int(turning_in_bed),
-                                    int(alsfrs), float(symptom_duration), float(pulse), float(systolic_blood_pressure))
+            speech = int(request.POST['speech'])
+            salivation = int(request.POST['salivation'])
+
+            swallowing = int(request.POST['swallowing'])
+            handwriting = int(request.POST['handwriting'])
+            cutting = int(request.POST['cutting'])
+            dressing = int(request.POST['dressing'])
+            turning_in_bed = int(request.POST['turning_in_bed'])
+
+            walking = int(request.POST['walking'])
+            climbing = int(request.POST['climbing'])
+            breathing = int(request.POST['breathing'])
+
+            alsfrs = speech+salivation+swallowing+handwriting + \
+                cutting+dressing+turning_in_bed+walking+climbing+breathing
+
+            symptom_duration = float(request.POST['symptom_duration'])
+            pulse = float(request.POST['pulse'])
+            systolic_blood_pressure = float(
+                request.POST['systolic_blood_pressure'])
+
+            result = get_prediction(sexe, age, poids, taille, salivation, cutting, turning_in_bed,
+                                    alsfrs, symptom_duration, pulse, systolic_blood_pressure)
 
             mort = result[0]
             survie = result[1]
@@ -38,9 +52,18 @@ def index(request):
                 age=age,
                 poids=poids,
                 taille=taille,
+
+                speech=speech,
                 salivation=salivation,
+                swallowing=swallowing,
+                handwriting=handwriting,
                 cutting=cutting,
+                dressing=dressing,
                 turning_in_bed=turning_in_bed,
+                walking=walking,
+                climbing=climbing,
+                breathing=breathing,
+
                 alsfrs=alsfrs,
                 symptom_duration=symptom_duration,
                 pulse=pulse,
@@ -81,6 +104,3 @@ def prediction(request):
         'survie': survie,
         'prediction': prediction,
     })
-
-
-2

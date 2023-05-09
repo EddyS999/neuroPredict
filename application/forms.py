@@ -5,20 +5,29 @@ from .models import Patient
 class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
-        fields = ('nom', 'prenom', 'sexe', 'age', 'poids', 'taille', 'salivation', 'cutting',
-                  'turning_in_bed', 'alsfrs', 'symptom_duration', 'pulse', 'systolic_blood_pressure')
+        fields = ('nom', 'prenom', 'sexe', 'age', 'poids', 'taille', 'speech', 'salivation', 'swallowing', 'handwriting',  'cutting', 'dressing',
+                  'turning_in_bed', 'walking', 'climbing', 'breathing', 'symptom_duration', 'pulse', 'systolic_blood_pressure')
 
         labels = {
-            'nom': 'Nom',
-            'prenom': 'Prénom',
-            'sexe': 'Sexe',
-            'age': 'Âge',
-            'poids': 'Poids (en kg)',
-            'taille': 'Taille',
+            'nom': 'Lastname',
+            'prenom': 'Name',
+            'sexe': 'Sex',
+            'age': 'Age',
+            'poids': 'Weight(kg)',
+            'taille': 'Height',
+            # ALSFRS
+            'speech': 'Speech',
             'salivation': 'Salivation',
+            'swallowing': 'Swallowing',
+            'handwriting': 'Handwriting',
             'cutting': 'Cutting',
+            'dressing': 'Dressing',
             'turning_in_bed': 'Turning in bed',
-            'alsfrs': 'ALSFRS',
+            'walking': 'Walking',
+            'climbing': 'Climbing',
+            'breathing': 'Breathing',
+
+
             'symptom_duration': 'Durée des symptômes (en mois)',
             'pulse': 'Pouls',
             'systolic_blood_pressure': 'Pression artérielle systolique',
@@ -43,6 +52,41 @@ class PatientForm(forms.ModelForm):
                 "La taille ne peut pas être négative.")
         return taille
 
+    def clean_speech(self):
+        speech = self.cleaned_data.get('speech')
+        if speech < 0 or speech > 4:
+            raise forms.ValidationError(
+                "Donnée mal saisie.")
+        return speech
+
+    def clean_handwriting(self):
+        handwriting = self.cleaned_data.get('handwriting')
+        if handwriting < 0 or handwriting > 4:
+            raise forms.ValidationError(
+                "Donnée mal saisie.")
+        return handwriting
+
+    def clean_walking(self):
+        walking = self.cleaned_data.get('walking')
+        if walking < 0 or walking > 4:
+            raise forms.ValidationError(
+                "Donnée mal saisie.")
+        return walking
+
+    def clean_climbing(self):
+        climbing = self.cleaned_data.get('climbing')
+        if climbing < 0 or climbing > 4:
+            raise forms.ValidationError(
+                "Donnée mal saisie.")
+        return climbing
+
+    def clean_speech(self):
+        speech = self.cleaned_data.get('speech')
+        if speech < 0 or speech > 4:
+            raise forms.ValidationError(
+                "Donnée mal saisie.")
+        return speech
+
     def clean_salvation(self):
         salvation = self.cleaned_data.get('salvation')
         if salvation < 0 or salvation > 4:
@@ -64,19 +108,19 @@ class PatientForm(forms.ModelForm):
                 "Donnée mal saisie.")
         return tib
 
-    def clean_alsfrs(self):
-        alsfrs = self.cleaned_data.get('alsfrs')
-        if alsfrs < 0 or alsfrs > 40:
-            raise forms.ValidationError(
-                "L'alsfrs doit se situer entre 0 et 40.")
-        return alsfrs
-
     def clean_duration(self):
         duration = self.cleaned_data.get('symptom_duration')
         if duration < 0:
             raise forms.ValidationError(
                 "La durée ne peut pas être négative.")
         return duration
+
+    def clean_breathing(self):
+        breathing = self.cleaned_data.get('breathing')
+        if breathing < 0:
+            raise forms.ValidationError(
+                "La durée ne peut pas être négative.")
+        return breathing
 
     def clean_pulse(self):
         pulse = self.cleaned_data.get('pulse')
