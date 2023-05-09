@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('prediction/', prediction, name='prediction'),
+    path('generer_csv/', generer_csv, name='generer_csv'),
 ]

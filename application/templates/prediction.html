@@ -21,6 +21,12 @@
     <p>Nom : {{nom}}</p>
     <p>Prenom : {{prenom}}</p>
 
+    <form action="{% url 'generer_csv' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Télécharger informations</button>
+    </form>
+
+
 
 </body>
 
