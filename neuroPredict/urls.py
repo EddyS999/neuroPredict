@@ -20,6 +20,9 @@ from application.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
+    path('importer/', importer, name='importer'),
     path('prediction/', prediction, name='prediction'),
-    path('generer_csv/', generer_csv, name='generer_csv'),
+    path('read_csv/', read_csv, name='read_csv'),
+    path('generer_csv/', generer_csv, name='generer_csv'),  # bouton générer
+
 ]

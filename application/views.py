@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .forms import PatientForm
 from .models import Patient
 from application.predict import get_prediction
-from application.generateCSV import generer_csv
+from application.csv_manager import *
 # Create your views here.
 
 
@@ -104,3 +104,13 @@ def prediction(request):
         'survie': survie,
         'prediction': prediction,
     })
+
+
+def navigation(request):
+    return render(request, "navigation.html")
+
+
+def importer(request):
+    if request.method == 'POST' and request.FILES['csv_file']:
+        read_csv(request)
+    return render(request, "importer.html")

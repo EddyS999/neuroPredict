@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<body>
+    <ul>
+        <li><a href="{% url 'index' %}"> Saisir patient</a></li>
+        <li><a href="{% url 'importer' %}">Importer</a></li>
+    </ul>
+
+    {% block content %}
+    {% endblock %}
+</body>
+</head>
+
+</html>
