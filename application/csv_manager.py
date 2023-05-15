@@ -27,10 +27,12 @@ def generer_csv(request):
 
 
 def read_csv(request):
-    csv_file = request.FILES['csv_file']
-    df = pd.read_csv(csv_file)
-    table_html = df.to_html()
-    response = HttpResponse()
-    response.write(table_html)
-
-    return response
+    csv_file = request.FILES.get('csv_file')
+    if csv_file:
+        df = pd.read_csv(csv_file)
+        table_html = df.to_html()
+        response = HttpResponse()
+        response.write(table_html)
+        return response
+    else:
+        pass

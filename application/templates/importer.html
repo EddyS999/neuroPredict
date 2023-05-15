@@ -17,25 +17,19 @@
     <div class="container">
         <h1>Importez fichier CSV</h1>
 
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'read_csv' %}">
             {% csrf_token %}
             <div class="mb-3">
                 <input type="file" class="form-control" name="csv_file" id="csv_file">
             </div>
+
+            <button type="submit" class="btn btn-primary">Importer csv</button>
+
         </form>
 
-        <form action="{% url 'read_csv' %}" method="post">
-            <button type="submit" class="btn btn-primary">Importer csv</button>
-        </form>
         {% if table_html %}
         {{ table_html|safe }}
         {% endif %}
-
-
-
-
-
-
 
     </div>
 
