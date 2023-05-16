@@ -37,8 +37,14 @@ def read_csv(request):
     """
 
     csv_file = request.FILES.get('csv_file')
+
     result = []
     if csv_file:
+
+        extension_csv = csv_file.name.split('.')[-1].lower()
+        if extension_csv != 'csv':
+            return HttpResponseBadRequest("Le fichier doit être au format CSV.")
+
         df = pd.read_csv(csv_file)
         table_html = df.to_html()
         response = HttpResponse()

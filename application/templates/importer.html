@@ -16,7 +16,7 @@
 
     <div class="container">
         <h1>Importez fichier CSV</h1>
-
+        <p>Obtenez directement les résultats de vos patients en important un fichier CSV.</p><br>
         <form method="POST" enctype="multipart/form-data" action="{% url 'read_csv' %}">
             {% csrf_token %}
             <div class="mb-3">
