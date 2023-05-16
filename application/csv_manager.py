@@ -75,16 +75,44 @@ def read_csv(request):
             first_row_taille = first_row.loc[:,
                                              taille].astype(float).to_frame().T
 
+            speech = df.columns[6]
+            first_row_speech = first_row.loc[:,
+                                             speech].astype(float).to_frame().T
+
             salivation = df.columns[7]
             first_row_salivation = first_row.loc[:, salivation].astype(
+                float).to_frame().T
+
+            swallowing = df.columns[8]
+            first_row_swallowing = first_row.loc[:, swallowing].astype(
+                float).to_frame().T
+
+            handwritting = df.columns[9]
+            first_row_handwritting = first_row.loc[:, handwritting].astype(
                 float).to_frame().T
 
             cutting = df.columns[10]
             first_row_cutting = first_row.loc[:,
                                               cutting].astype(float).to_frame().T
 
+            dressing = df.columns[11]
+            first_row_dressing = first_row.loc[:,
+                                               dressing].astype(float).to_frame().T
+
             turning_in_bed = df.columns[12]
             first_row_turning = first_row.loc[:, turning_in_bed].astype(
+                float).to_frame().T
+
+            walking = df.columns[13]
+            first_row_walking = first_row.loc[:,
+                                              walking].astype(float).to_frame().T
+
+            climbing = df.columns[14]
+            first_row_climbing = first_row.loc[:,
+                                               climbing].astype(float).to_frame().T
+
+            breathing = df.columns[15]
+            first_row_breathing = first_row.loc[:, breathing].astype(
                 float).to_frame().T
 
             alsfrs = df.columns[16]
