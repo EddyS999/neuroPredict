@@ -1,5 +1,6 @@
 import pandas as pd
-from django.http import HttpResponse, HttpResponseBadRequest
+import io
+from django.http import HttpResponse, HttpResponseBadRequest, FileResponse
 from application.models import Patient
 from application.predict import get_prediction
 # générer un fichier CSV a partir de la base de donnée
@@ -43,15 +44,16 @@ def read_csv(request):
         response = HttpResponse()
         response.write(table_html)
 
-        '''
-        row = df.iloc[0].to_frame().T
-        response.write("<h2>Première ligne de patients :</h2>")
-        response.write(row.to_html(header=False, index=False))
-        '''
-        for i in range(0, df.shape[0]):
-            first_row = df.iloc[[i]]  # premiere ligne
+        columns = ['Prediction', 'Survie', 'Mortalite']
+        # return true or false
+        missing_columns = [col for col in columns if col not in df.columns]
 
-            # de 2 à 19
+        if missing_columns:
+            df = df.reindex(columns=[*df.columns, *missing_columns])
+
+        for i in range(0, df.shape[0]):
+            first_row = df.iloc[[i]]  # lignes
+
             sex = df.columns[2]
             first_row_sex = first_row.loc[:, sex].astype(float).to_frame().T
 
@@ -125,14 +127,34 @@ def read_csv(request):
             result.append(get_prediction(first_row_sex, first_row_age, first_row_poids, first_row_taille, first_row_salivation, first_row_cutting,
                                          first_row_turning, first_row_alsfrs, first_row_duration, first_row_pulse, first_row_blood))
 
+            df.loc[i, 'Prediction'] = result[i][2]
+            df.loc[i, 'Survie'] = result[i][1]
+            df.loc[i, 'Mortalite'] = result[i][2]
+
+        buffer = io.BytesIO()
+        df.to_csv(buffer, index=False)
+        buffer.seek(0)
+        response = FileResponse(
+            buffer, as_attachment=True, filename='predictions.csv')
+        """
+            df.insert(20, "prédiction", result[i][2])
+            df.insert(21, "chance survie", result[i][1])
+            df.insert(22, "chance mort", result[i][0])
+        """
         # col = df[[sex]]
 
         # response.write(first_row_salivation.to_html(header=False, index=False))
 
         # afficher les chances de mort survie de chaque patient
-        for r in result:
-            response.write(str(r)+" ")
 
+        # response.write(result)
+        '''
+        response.write(result[0][0])  # mort patient 0
+        response.write("<br>")
+        response.write(result[0][1])  # survie patient 0
+        response.write("<br>")
+        response.write(result[0][2])  # prediction
+        '''
         return response
     else:
         return HttpResponseBadRequest("Aucun fichier n'a été joint.")
