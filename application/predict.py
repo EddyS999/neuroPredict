@@ -26,7 +26,7 @@ def get_prediction(sexe, age, poids, taille, salivation, cutting, turning, alsfr
 
 
 def get_prediction_reg(sexe, age, poids, taille, salivation, cutting, turning, alsfrs, symptom_duration, pulse, systolic_blood_pressure):
-    result = []
+
     if os.path.getsize('application/model/als_model_reg.pkl') > 0:
         with open('application/model/als_model_reg.pkl', 'rb') as file:
             model = pickle.load(file)
@@ -39,4 +39,4 @@ def get_prediction_reg(sexe, age, poids, taille, salivation, cutting, turning, a
         return prediction.tolist()
 
     else:
-        return 0
+        return []

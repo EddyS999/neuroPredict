@@ -40,7 +40,7 @@ def read_csv(request):
 
     result = []
     if csv_file:
-
+        # on recupère la derniere case de la liste
         extension_csv = csv_file.name.split('.')[-1].lower()
         if extension_csv != 'csv':
             return HttpResponseBadRequest("Le fichier doit être au format CSV.")
@@ -55,6 +55,12 @@ def read_csv(request):
         # return true or false
         missing_columns = [col for col in columns if col not in df.columns]
 
+        # si une des valeurs n'est pas au bon format
+        try:
+            df = df.applymap(lambda value: float(value))
+        except ValueError:
+            return HttpResponseBadRequest("Toutes les données du CSV doivent être des nombres.")
+
         if missing_columns:
             df = df.reindex(columns=[*df.columns, *missing_columns])
 
@@ -62,6 +68,8 @@ def read_csv(request):
             first_row = df.iloc[[i]]  # lignes
 
             sex = df.columns[2]
+            # first_row_sex = first_row_sex.replace('homme', 1, inplace=True)
+            # first_row_sex = first_row_sex.replace('femme', 0, inplace=True)
             first_row_sex = first_row.loc[:, sex].astype(float).to_frame().T
 
             age = df.columns[3]
