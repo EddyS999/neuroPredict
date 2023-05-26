@@ -43,7 +43,7 @@ def read_csv(request):
         # on recupère la derniere case de la liste
         extension_csv = csv_file.name.split('.')[-1].lower()
         if extension_csv != 'csv':
-            return HttpResponseBadRequest("Le fichier doit être au format CSV.")
+            return HttpResponseBadRequest("Le fichier doit être au format CSV ou xls.")
 
         df = pd.read_csv(csv_file)
         '''
@@ -59,7 +59,7 @@ def read_csv(request):
         try:
             df = df.applymap(lambda value: float(value))
         except ValueError:
-            return HttpResponseBadRequest("Toutes les données du CSV doivent être des nombres.")
+            return HttpResponseBadRequest("Erreur : toutes les données du CSV doivent être des nombres.")
 
         if missing_columns:
             df = df.reindex(columns=[*df.columns, *missing_columns])

@@ -1,10 +1,7 @@
-- Réaliser un formulaire permettant à un clinicien d'indiquer les données d'un patient dans le bon format.
-- Réaliser une prédiction sur l'état de santé futur (Chance de survie et progression de la maladie) d'un patient en intégrant mes propres modèles de machine learning à l'application.
-- Pouvoir sauvegarder les résultats et les graphiques dans un fichier pdf.
-- Faire en sorte que l'UX design soit intuitif et pratique.
-
-- ajouter une fonctionalité qui permet au médecin d'importer un fichier csv/xlsx représentant une cohorte de patients
-- Chaque colonne est une variable et chaque ligne un patient
-- Tu vérifies que toutes les données sont au bon format 
-- Une fois importer il arrive sur une nouvelle page avec la prédiction pour chaque patient, le pourcentage de survie en moyenne etc ...
-- Il récupère les résultats des patients (Survie/Décès, Probabilité de survie) au format csv avec un bouton
+L'objectif est de prédire l'évolution du score de l'ALSFRS chez les patients tous les 3 mois lors de la première année de leur prise en charge
+Le but est que sur la même page où tu fais une prédiction sur la survie ajouter une courbe qui montre l'évolution de l'ALSFRS des patients avec 5 points:
+T0: La valeur d'ALSFRS que tu passes en entrer
+T3: La 1ère valeur prédite par le modèle correspondant à 3 mois dans le futur
+T6: La 2ème valeur prédite par le modèle correspondant à 6 mois dans le futur
+T9: ""
+T12: ""
