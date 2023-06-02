@@ -1,4 +1,8 @@
+from typing import Any, Dict, Mapping, Optional, Type, Union
 from django import forms
+from django.core.files.base import File
+from django.db.models.base import Model
+from django.forms.utils import ErrorList
 from .models import Patient
 
 
@@ -33,11 +37,24 @@ class PatientForm(forms.ModelForm):
             'systolic_blood_pressure': 'Pression artérielle systolique',
         }
 
+    def __init__(self, *args, **kwargs) -> None:
+        super(PatientForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            if isinstance(field.widget, forms.Textarea):
+                field.widget.attrs['class'] += 'input-sm'
+
     def clean_age(self):
         age = self.cleaned_data.get('age')
         if age < 0:
             raise forms.ValidationError("L'âge ne peut pas être négatif.")
         return age
+
+    def clean_sex(self):
+        sex = self.cleaned_data.get('sex')
+        if sex != 0 or sex != 1:
+            raise forms.ValidationError("0 pour les femmes, 1 pour les hommes")
+        return sex
 
     def clean_poids(self):
         poids = self.cleaned_data.get('poids')
@@ -55,8 +72,7 @@ class PatientForm(forms.ModelForm):
     def clean_speech(self):
         speech = self.cleaned_data.get('speech')
         if speech < 0 or speech > 4:
-            raise forms.ValidationError(
-                "Donnée mal saisie.")
+            self.add_error('speech', "Donnée mal saisie.")
         return speech
 
     def clean_handwriting(self):

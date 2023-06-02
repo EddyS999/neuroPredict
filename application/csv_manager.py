@@ -35,22 +35,15 @@ def read_csv(request):
     Si aucun fichier n'a été joint, la fonction renvoie une réponse d'erreur.
 
     """
-
     csv_file = request.FILES.get('csv_file')
-
     result = []
     if csv_file:
         # on recupère la derniere case de la liste
         extension_csv = csv_file.name.split('.')[-1].lower()
         if extension_csv != 'csv':
             return HttpResponseBadRequest("Le fichier doit être au format CSV ou xls.")
-
         df = pd.read_csv(csv_file)
-        '''
-        table_html = df.to_html()
-        response = HttpResponse()
-        response.write(table_html)
-        '''
+
         columns = ['Prediction', 'Survie', 'Mortalite']
         # return true or false
         missing_columns = [col for col in columns if col not in df.columns]
@@ -151,25 +144,7 @@ def read_csv(request):
         buffer.seek(0)
         response = FileResponse(
             buffer, as_attachment=True, filename='predictions.csv')
-        """
-            df.insert(20, "prédiction", result[i][2])
-            df.insert(21, "chance survie", result[i][1])
-            df.insert(22, "chance mort", result[i][0])
-        """
-        # col = df[[sex]]
 
-        # response.write(first_row_salivation.to_html(header=False, index=False))
-
-        # afficher les chances de mort survie de chaque patient
-
-        # response.write(result)
-        '''
-        response.write(result[0][0])  # mort patient 0
-        response.write("<br>")
-        response.write(result[0][1])  # survie patient 0
-        response.write("<br>")
-        response.write(result[0][2])  # prediction
-        '''
         return response
     else:
         return HttpResponseBadRequest("Aucun fichier n'a été joint.")
