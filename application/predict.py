@@ -4,6 +4,7 @@ import sklearn
 import os
 
 
+# modelèle de classification
 def get_prediction(sexe, age, poids, taille, salivation, cutting, turning, alsfrs, symptom_duration, pulse, systolic_blood_pressure):
     result = []
     if os.path.getsize('application/model/als_model.pkl') > 0:
@@ -25,8 +26,8 @@ def get_prediction(sexe, age, poids, taille, salivation, cutting, turning, alsfr
     return result
 
 
+# modèle de regression
 def get_prediction_reg(sexe, age, poids, taille, salivation, cutting, turning, alsfrs, symptom_duration, pulse, systolic_blood_pressure):
-
     if os.path.getsize('application/model/als_model_reg.pkl') > 0:
         with open('application/model/als_model_reg.pkl', 'rb') as file:
             model = pickle.load(file)
@@ -37,6 +38,5 @@ def get_prediction_reg(sexe, age, poids, taille, salivation, cutting, turning, a
                            turning, alsfrs, symptom_duration, pulse, systolic_blood_pressure])
         prediction = model.predict(patient.reshape(1, -1))[0]
         return prediction.tolist()
-
     else:
         return []
